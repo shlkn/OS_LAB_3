@@ -43,8 +43,6 @@ int main()
 			}
 			default:
 			{
-				int stat_val;
-				pid_t child_pid = wait(&stat_val);
 				wait(&stat);
 				if(WIFEXITED(stat))
 					printf("done\n");
