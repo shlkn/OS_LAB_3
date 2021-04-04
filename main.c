@@ -18,7 +18,7 @@ int main()
 		printf("$");
 		scanf("%[^\r\n]", cmd);
 		int i = 0;
-		if(strcmp(cmd, "exit") == 0)
+		if(!strcmp(cmd, "exit"))
 			break;
 		temp = strtok(cmd, " ");
 		while(temp != NULL)
@@ -29,7 +29,6 @@ int main()
 			temp = strtok(NULL, " ");
 		}
 		pcmd[i] = NULL;
-		pid_t pid;
 		int stat;
 		pid = fork();
 		switch(pid)
@@ -61,5 +60,8 @@ int main()
 void onCtrlC(int sig)
 {
 	printf("I got signal\n");
-	kill(pid, SIGINT);
-}
+	if(kill(pid, SIGINT) == -1)
+		printf("Error in kill\n");
+	else
+		printf("process killed\n");
+} 
