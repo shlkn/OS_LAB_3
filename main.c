@@ -4,6 +4,10 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <signal.h>
+
+void onCtrlC(int sig);
+pid_t pid;
 
 int main()
 {
@@ -43,13 +47,19 @@ int main()
 			}
 			default:
 			{
+				(void)signal(SIGINT, onCtrlC);
 				wait(&stat);
 				if(WIFEXITED(stat))
 					printf("done\n");
-				getchar();
 			}
 		}
+		getchar();
 	}
-	
 	exit(0);
+}
+
+void onCtrlC(int sig)
+{
+	printf("I got signal\n");
+	kill(pid, SIGINT);
 }
