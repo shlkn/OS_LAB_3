@@ -59,18 +59,18 @@ void main_cycle()
 void parse_words(char *cmd, char *pcmd[])
 {
 	char  components[10][30], *temp;
-		int i = 0;
-		if(!strcmp(cmd, "exit")) // user entered "exit"?
-			exit(1);
-		temp = strtok(cmd, " "); // statrs to parse string that contains command
-		while(temp != NULL) // is it end of string?
-		{
-			strcpy(components[i], temp); // copy string from temp to vector of srtigns
-			pcmd[i] = components[i]; // getting pointer to string for vector of pointers
-			i++;
-			temp = strtok(NULL, " "); // continue parse string
-		}
-		pcmd[i] = NULL; // shows end of vector of pointers for exec()
+	int i = 0;
+	if(!strcmp(cmd, "exit")) // user entered "exit"?
+		exit(1);
+	temp = strtok(cmd, " "); // statrs to parse string that contains command
+	while(temp != NULL) // is it end of string?
+	{
+		strcpy(components[i], temp); // copy string from temp to vector of srtigns
+		pcmd[i] = components[i]; // getting pointer to string for vector of pointers
+		i++;
+		temp = strtok(NULL, " "); // continue parse string
+	}
+	pcmd[i] = NULL; // shows end of vector of pointers for exec()
 }
 
 void onCtrlC(int sig)
@@ -81,6 +81,5 @@ void onCtrlC(int sig)
 		printf("Error, can`t find pid of child process, exited main program\n");
 		exit(1);
 	}
-	else
-		printf("process killed\n");
+	else printf("process killed\n");
 } 
